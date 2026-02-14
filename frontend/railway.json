@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/railway.json",
+  "build": {
+    "builder": "dockerfile",
+    "dockerfile": "Dockerfile"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "restartPolicyType": "on_failure",
+    "restartPolicyMaxRetries": 3
+  },
+  "env": {
+    "REACT_APP_API_URL": {
+      "description": "Backend API URL (set to your API service URL, e.g., https://api.yourdomain.com)",
+      "default": "http://localhost:8000"
+    },
+    "NODE_ENV": {
+      "description": "Node environment",
+      "default": "production"
+    }
+  }
+}

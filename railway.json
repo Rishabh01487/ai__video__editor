@@ -1,7 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/railway.json",
   "build": {
-    "builder": "nixpacks"
+    "builder": "dockerfile",
+    "dockerfile": "Dockerfile.api"
   },
   "deploy": {
     "numReplicas": 1,
@@ -15,12 +16,20 @@
       "default": "false"
     },
     "SECRET_KEY": {
-      "description": "Secret key for JWT and security (generate a random string, min 32 chars)",
+      "description": "Secret key for JWT and security (generate: python -c 'import secrets; print(secrets.token_urlsafe(32))')",
+      "default": ""
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL database URL (set by Railway PostgreSQL plugin)",
+      "default": ""
+    },
+    "REDIS_URL": {
+      "description": "Redis URL (set by Railway Redis plugin)",
       "default": ""
     },
     "CORS_ORIGINS": {
-      "description": "Comma-separated list of allowed CORS origins",
-      "default": "https://yourdomain.com"
+      "description": "Comma-separated list of allowed CORS origins (e.g., https://yourdomain.com)",
+      "default": "http://localhost:3000"
     },
     "S3_ENDPOINT": {
       "description": "S3-compatible endpoint URL",
@@ -45,6 +54,10 @@
     "S3_SECURE": {
       "description": "Use HTTPS for S3 (true for AWS S3/B2, false for local MinIO)",
       "default": "true"
+    },
+    "PORT": {
+      "description": "Port for FastAPI (Railway will set this)",
+      "default": "8000"
     }
   }
 }

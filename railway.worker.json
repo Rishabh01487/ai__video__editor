@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json.schemastore.org/railway.json",
+  "build": {
+    "builder": "dockerfile",
+    "dockerfile": "../backend/Dockerfile"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "startCommand": "celery -A app.workers.celery_app worker --loglevel=info",
+    "restartPolicyType": "on_failure",
+    "restartPolicyMaxRetries": 5
+  },
+  "env": {
+    "DEBUG": {
+      "description": "Enable debug mode",
+      "default": "false"
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL database URL (same as API service)",
+      "default": ""
+    },
+    "REDIS_URL": {
+      "description": "Redis URL (same as API service)",
+      "default": ""
+    },
+    "S3_ENDPOINT": {
+      "description": "S3-compatible endpoint URL (same as API)",
+      "default": "https://s3.amazonaws.com"
+    },
+    "S3_ACCESS_KEY": {
+      "description": "S3 access key (same as API)",
+      "default": ""
+    },
+    "S3_SECRET_KEY": {
+      "description": "S3 secret key (same as API)",
+      "default": ""
+    },
+    "S3_BUCKET": {
+      "description": "S3 bucket name (same as API)",
+      "default": "video-editor"
+    },
+    "S3_REGION": {
+      "description": "S3 region (same as API)",
+      "default": "us-west-2"
+    },
+    "S3_SECURE": {
+      "description": "Use HTTPS for S3 (same as API)",
+      "default": "true"
+    }
+  }
+}

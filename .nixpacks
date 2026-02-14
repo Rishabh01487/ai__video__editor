@@ -1,0 +1,3 @@
+# Nixpacks ignore file
+# This tells Railway/Nixpacks to skip auto-detection for this monorepo
+# We're using Docker instead (see railway.json)
