@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/railway.json",
-  "build": {
-    "builder": "docker"
-  },
   "deploy": {
     "numReplicas": 1,
     "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
