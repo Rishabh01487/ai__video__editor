@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 celery_app = Celery(
     "video_editor",
-    broker=settings.celery_broker_url,
-    backend=settings.celery_result_backend
+    broker=settings.CELERY_BROKER_URL,
+    backend=settings.CELERY_RESULT_BACKEND
 )
 
 celery_app.conf.update(
@@ -21,4 +21,4 @@ celery_app.conf.update(
     task_track_started=True,
 )
 
-logger.info("Celery app initialized")
+logger.info("Celery app initialized with Redis broker")

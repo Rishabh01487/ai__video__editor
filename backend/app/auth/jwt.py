@@ -17,7 +17,7 @@ def create_access_token(data: Dict, expires_delta: Optional[timedelta] = None) -
         expire = datetime.now(timezone.utc) + expires_delta
     else:
         expire = datetime.now(timezone.utc) + timedelta(
-            minutes=settings.access_token_expire_minutes
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
     
     to_encode.update({"exp": expire})
@@ -25,8 +25,8 @@ def create_access_token(data: Dict, expires_delta: Optional[timedelta] = None) -
     try:
         encoded_jwt = jwt.encode(
             to_encode,
-            settings.secret_key,
-            algorithm=settings.algorithm
+            settings.SECRET_KEY,
+            algorithm=settings.ALGORITHM
         )
         return encoded_jwt
     except Exception as e:
@@ -39,8 +39,8 @@ def verify_token(token: str) -> Optional[Dict]:
     try:
         payload = jwt.decode(
             token,
-            settings.secret_key,
-            algorithms=[settings.algorithm]
+            settings.SECRET_KEY,
+            algorithms=[settings.ALGORITHM]
         )
         user_id: str = payload.get("sub")
         if user_id is None:

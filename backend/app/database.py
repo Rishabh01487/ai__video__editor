@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 # Create database engine
 # Use NullPool to avoid connection pooling issues in containerized environments
 engine = create_engine(
-    settings.database_url,
+    settings.DATABASE_URL,
     poolclass=NullPool,
     echo=settings.debug
 )

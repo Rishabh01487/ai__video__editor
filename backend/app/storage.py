@@ -1,4 +1,4 @@
-"""S3/Object storage client"""
+"""S3/Object storage client - FIXED for proper config attribute names"""
 
 import boto3
 from botocore.exceptions import ClientError
@@ -12,14 +12,15 @@ class S3Client:
     """S3-compatible object storage client"""
     
     def __init__(self):
-        self.bucket_name = settings.s3_bucket
+        # ✅ FIX: Use correct uppercase config attribute names
+        self.bucket_name = settings.S3_BUCKET
         self.client = boto3.client(
             "s3",
-            endpoint_url=settings.s3_endpoint,
-            aws_access_key_id=settings.s3_access_key,
-            aws_secret_access_key=settings.s3_secret_key,
-            region_name=settings.s3_region,
-            use_ssl=settings.s3_secure
+            endpoint_url=settings.S3_ENDPOINT_URL,
+            aws_access_key_id=settings.S3_ACCESS_KEY,
+            aws_secret_access_key=settings.S3_SECRET_KEY,
+            region_name=settings.S3_REGION,
+            use_ssl=settings.S3_USE_SSL
         )
         self._ensure_bucket_exists()
     
@@ -109,5 +110,9 @@ class S3Client:
             raise
 
 
-# Global S3 client instance
-s3_client = S3Client()
+# Global S3 client instance with error handling
+try:
+    s3_client = S3Client()
+except Exception as e:
+    logger.warning(f"Failed to initialize S3 client: {e}")
+    s3_client = None
